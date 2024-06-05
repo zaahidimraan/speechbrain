@@ -612,14 +612,15 @@ class Enhancement(sb.Brain):
 
 def dataio_prep(hparams):
     """Creates data processing pipeline"""
-    speech_dirs = [
-        "read_speech",
-        "german_speech",
-        "french_speech",
-        "italian_speech",
-        "spanish_speech",
-        "russian_speech",
-    ]
+    # speech_dirs = [
+    #     "read_speech",
+    #     "german_speech",
+    #     "french_speech",
+    #     "italian_speech",
+    #     "spanish_speech",
+    #     "russian_speech",
+    # ]
+    speech_dirs = [ french_fullband ]
     audio_length = hparams["audio_length"]
 
     train_shard_patterns = []
