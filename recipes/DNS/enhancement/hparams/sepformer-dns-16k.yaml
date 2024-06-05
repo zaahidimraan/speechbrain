@@ -106,15 +106,15 @@ kernel_stride: 8
 # Dataloader options
 dataloader_opts:
     batch_size: !ref <batch_size>
-    num_workers: 3
+    num_workers: 1
 
 dataloader_opts_valid:
     batch_size: !ref <batch_size>
-    num_workers: 3
+    num_workers: 1
 
 dataloader_opts_test:
     batch_size: !ref <batch_size_test>
-    num_workers: 3
+    num_workers: 1
 
 # Specifying the network
 Encoder: !new:speechbrain.lobes.models.dual_path.Encoder
