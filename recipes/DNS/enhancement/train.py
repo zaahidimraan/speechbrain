@@ -114,7 +114,7 @@ class Enhancement(sb.Brain):
             est_source = est_source[:, :T_origin]
 
         return [est_source, sep_h], clean.squeeze(-1)
-
+    
     def compute_feats(self, wavs):
         """Feature computation pipeline"""
         feats = self.hparams.Encoder(wavs)
@@ -123,16 +123,52 @@ class Enhancement(sb.Brain):
         return feats
 
     def compute_objectives(self, predictions, clean):
-        """Computes the si-snr loss"""
+        """Computes the combined SI-SNR, PESQ, and STOI loss."""
         predicted_wavs, predicted_specs = predictions
 
+        # SI-SNR Loss
         if self.use_freq_domain:
             target_specs = self.compute_feats(clean)
-            return self.hparams.loss(target_specs, predicted_specs)
+            si_snr_loss = self.hparams.loss(target_specs, predicted_specs)
         else:
-            return self.hparams.loss(
-                clean.unsqueeze(-1), predicted_wavs.unsqueeze(-1)
-            )
+            si_snr_loss = self.hparams.loss(clean.unsqueeze(-1), predicted_wavs.unsqueeze(-1))
+
+        # Move tensors to CPU and detach from the computation graph before converting to NumPy
+        clean_cpu = clean.detach().cpu().squeeze().numpy()
+        predicted_wavs_cpu = predicted_wavs.detach().cpu().squeeze().numpy()
+
+        # PESQ Loss
+        pesq_score = torch.tensor(
+            pesq(self.hparams.sample_rate, clean_cpu, predicted_wavs_cpu, 'wb'),
+            device=clean.device,
+        )
+
+        # STOI Loss
+        stoi_score = torch.tensor(
+            stoi(clean_cpu, predicted_wavs_cpu, self.hparams.sample_rate , extended=False),
+            device=clean.device,
+        )
+        # print(si_snr_loss,pesq_score,stoi_score)
+        # Combine Losses (with customizable weights)
+        loss = (si_snr_loss
+            + self.hparams.pesq_weight * pesq_score
+            + self.hparams.stoi_weight * stoi_score)  # Note the '+' sign, as higher STOI is better
+
+        return loss
+
+
+
+    # def compute_objectives(self, predictions, clean):
+    #     """Computes the si-snr loss"""
+    #     predicted_wavs, predicted_specs = predictions
+
+    #     if self.use_freq_domain:
+    #         target_specs = self.compute_feats(clean)
+    #         return self.hparams.loss(target_specs, predicted_specs)
+    #     else:
+    #         return self.hparams.loss(
+    #             clean.unsqueeze(-1), predicted_wavs.unsqueeze(-1)
+    #         )
 
     def fit_batch(self, batch):
         """Trains one batch"""
