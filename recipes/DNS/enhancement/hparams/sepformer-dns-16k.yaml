@@ -52,8 +52,8 @@ limit_training_signal_len: False
 # the signal length of training sequences
 training_signal_len: 32000
 ckpt_interval_minutes: 60
-pesq_weight: 0.5
-stoi_weight: 0.5
+pesq_weight: 0.8
+stoi_weight: 1.0
 
 
 # Parameters for data augmentation
