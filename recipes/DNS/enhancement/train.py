@@ -133,15 +133,40 @@ class Enhancement(sb.Brain):
         else:
             si_snr_loss = self.hparams.loss(clean.unsqueeze(-1), predicted_wavs.unsqueeze(-1))
 
-        # Move tensors to CPU and detach from the computation graph before converting to NumPy
-        clean_cpu = clean.detach().cpu().squeeze().numpy()
-        predicted_wavs_cpu = predicted_wavs.detach().cpu().squeeze().numpy()
-
-        # PESQ Loss
-        pesq_score = torch.tensor(
+        try:
+            clean_cpu = clean.detach().cpu().squeeze().numpy()
+            predicted_wavs_cpu = predicted_wavs.detach().cpu().squeeze().numpy()
+        except RuntimeError as rte:
+            # Check data shapes and types
+            print("Error:", rte)
+            print("clean_cpu shape: ", clean_cpu.shape, "type: ", clean_cpu.dtype)
+            print("predicted_wavs_cpu shape:", predicted_wavs_cpu.shape, "type: ", predicted_wavs_cpu.dtype)
+            
+            # Handle the error gracefully, potentially:
+            # - Skip this batch's PESQ calculation and log a warning
+            # - Replace the PESQ loss with a default value (e.g., 0 or a placeholder)
+            # - Apply additional checks/transformations to the data before proceeding
+            logging.warn(f"Error occured while calculating PESQ.")
+            pesq_score = 0
+        
+        try:
+            pesq_score = torch.tensor(
             pesq(self.hparams.sample_rate, clean_cpu, predicted_wavs_cpu, 'wb'),
             device=clean.device,
-        )
+            )
+        except Exception as e:  # Broad exception for unexpected errors
+            logging.error(f"Unexpected error during PESQ calculation: {e}")
+            # Handle the unexpected error as needed
+            pesq_score = 0
+        # # Move tensors to CPU and detach from the computation graph before converting to NumPy
+        # clean_cpu = clean.detach().cpu().squeeze().numpy()
+        # predicted_wavs_cpu = predicted_wavs.detach().cpu().squeeze().numpy()
+
+        # # PESQ Loss
+        # pesq_score = torch.tensor(
+        #     pesq(self.hparams.sample_rate, clean_cpu, predicted_wavs_cpu, 'wb'),
+        #     device=clean.device,
+        # )
 
         # STOI Loss
         stoi_score = torch.tensor(
@@ -155,7 +180,6 @@ class Enhancement(sb.Brain):
             + self.hparams.stoi_weight * stoi_score)  # Note the '+' sign, as higher STOI is better
 
         return loss
-
 
 
     # def compute_objectives(self, predictions, clean):
