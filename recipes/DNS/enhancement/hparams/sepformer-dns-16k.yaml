@@ -190,14 +190,18 @@ checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
     save_file: !ref <train_log>
 
-## Uncomment to fine-tune a pre-trained model.
-# pretrained_enhancement: !new:speechbrain.utils.parameter_transfer.Pretrainer
-#     collect_in: !ref <save_folder>
-#     loadables:
-#         encoder: !ref <Encoder>
-#         decoder: !ref <Decoder>
-#         masknet: !ref <MaskNet>
-#     paths:
-#         encoder: !PLACEHOLDER
-#         decoder: !PLACEHOLDER
-#         masknet: !PLACEHOLDER
+EncoderPath: !PLACEHOLDER
+DecoderPath: !PLACEHOLDER
+MaskNetPath: !PLACEHOLDER
+
+# Uncomment to fine-tune a pre-trained model.
+pretrained_enhancement: !new:speechbrain.utils.parameter_transfer.Pretrainer
+    collect_in: !ref <save_folder>
+    loadables:
+      encoder: !ref <Encoder>
+      decoder: !ref <Decoder>
+      masknet: !ref <MaskNet>
+    paths:
+      encoder: !ref <EncoderPath>
+      decoder: !ref <DecoderPath>
+      masknet: !ref <MaskNetPath>

@@ -17,7 +17,7 @@ from types import SimpleNamespace
 import torch
 from hyperpyyaml import load_hyperpyyaml
 from tqdm.auto import tqdm
-from train import dataio_prep, load_dependencies
+from trainO import dataio_prep, load_dependencies
 
 import speechbrain as sb
 from speechbrain.dataio.batch import PaddedBatch

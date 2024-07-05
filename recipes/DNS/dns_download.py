@@ -35,10 +35,32 @@ import certifi
 import requests
 from tqdm.auto import tqdm
 
-BLOB_NAMES = [
+# BLOB_NAMES = [
+#     "clean_fullband/datasets_fullband.clean_fullband.french_speech_000_NA_NA.tar.bz2",
+#     "noise_fullband/datasets_fullband.noise_fullband.audioset_000.tar.bz2",
+#     "datasets_fullband.dev_testset_000.tar.bz2",
+# ]
+
+BLOB_NAMES =[
     "clean_fullband/datasets_fullband.clean_fullband.french_speech_000_NA_NA.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.french_speech_001_NA_NA.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.german_speech_000_0.00_3.47.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.german_speech_017_NA_NA.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.german_speech_042_NA_NA.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.italian_speech_000_0.00_3.98.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.italian_speech_001_3.98_4.21.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.italian_speech_002_4.21_4.40.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.read_speech_000_0.00_3.75.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.read_speech_025_NA_NA.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.spanish_speech_000_0.00_4.09.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.russian_speech_000_0.00_4.31.tar.bz2",
+    "clean_fullband/datasets_fullband.clean_fullband.vctk_wav48_silence_trimmed_000.tar.bz2",
     "noise_fullband/datasets_fullband.noise_fullband.audioset_000.tar.bz2",
-    "datasets_fullband.dev_testset_000.tar.bz2",
+    "noise_fullband/datasets_fullband.noise_fullband.audioset_001.tar.bz2",
+    "noise_fullband/datasets_fullband.noise_fullband.audioset_002.tar.bz2",
+    "noise_fullband/datasets_fullband.noise_fullband.audioset_003.tar.bz2",
+    "datasets_fullband.dev_testset_000.tar.bz2"
+
 ]
 # BLOB_NAMES = [
 #     "clean_fullband/datasets_fullband.clean_fullband.VocalSet_48kHz_mono_000_NA_NA.tar.bz2",
