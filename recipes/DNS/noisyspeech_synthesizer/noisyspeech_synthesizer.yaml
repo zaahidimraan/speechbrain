@@ -37,14 +37,14 @@ audioformat: "*.wav"
 audio_length: 4
 silence_length: 0.2
 total_hours: 100
-snr_lower: -5
-snr_upper: 15
+snr_lower: -10
+snr_upper: 5
 randomize_snr: True
 target_level_lower: -35
 target_level_upper: -15
 total_snrlevels: 21
 clean_activity_threshold: 0.6
-noise_activity_threshold: 0.0
+noise_activity_threshold: 0.4
 fileindex_start: None
 fileindex_end: None
 is_test_set: False
@@ -96,6 +96,6 @@ use_mandarin_data: 0
 # 1 for only real rir, 2 for only synthetic rir, 3 (default) use both real and synthetic
 rir_choice: 3
 # lower bound of t60 range in seconds
-lower_t60: 0.3
+lower_t60: 0.7
 # upper bound of t60 range in seconds
-upper_t60: 1.3
+upper_t60: 2.3
