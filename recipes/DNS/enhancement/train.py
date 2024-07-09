@@ -681,7 +681,7 @@ def dataio_prep(hparams):
     #     "russian_speech",
     # ]
     # speech_dirs = [ 'french_fullband' ,'german_fullband','spanish_fullband','russian_fullband','read_fullband','italian_speech' ]
-    speech_dirs = [ 'french_fullband' ,'german_fullband','spanish_fullband','read_fullband' ]
+    speech_dirs = [ 'french_fullband' ,'german_fullband','spanish_fullband' ]
     audio_length = hparams["audio_length"]
 
     train_shard_patterns = []
