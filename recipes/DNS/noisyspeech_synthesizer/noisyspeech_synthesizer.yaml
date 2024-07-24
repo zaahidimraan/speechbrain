@@ -44,7 +44,7 @@ target_level_lower: -35
 target_level_upper: -15
 total_snrlevels: 21
 clean_activity_threshold: 0.6
-noise_activity_threshold: 0.4
+noise_activity_threshold: 0.2
 fileindex_start: None
 fileindex_end: None
 is_test_set: False
