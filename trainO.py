@@ -652,9 +652,10 @@ def dataio_prep(hparams):
     #     "spanish_speech",
     #     "russian_speech",
     # ]
-    speech_dirs = [ 'french_fullband',"read_speech",
-        "german_speech",
-        "spanish_speech"]
+    # speech_dirs = [ 'french_fullband',"read_speech",
+    #     "german_speech",
+    #     "spanish_speech"]
+    speech_dirs = ['read_fullband']
                 
     audio_length = hparams["audio_length"]
 
