@@ -11,6 +11,7 @@ read_fullband_logs
 results
 sepformer-dns4-16k-enhancement
 synthesized_data_shards
+synthesized_data_shards1
 noisyspeech_synthesizer
 RIR_table_simple.csv
 private
