@@ -225,7 +225,8 @@ class Enhancement(sb.Brain):
                         loss = loss.mean()
 
                 if (
-                    loss < self.hparams.loss_upper_lim and loss.nelement() > 0
+                    # loss < self.hparams.loss_upper_lim and loss.nelement() > 0
+                    loss.nelement() > 0
                 ):  # the fix for computational problems
                     self.scaler.scale(loss).backward()
                     if self.hparams.clip_grad_norm >= 0:
@@ -681,7 +682,7 @@ def dataio_prep(hparams):
     #     "russian_speech",
     # ]
     # speech_dirs = [ 'french_fullband' ,'german_fullband','spanish_fullband','russian_fullband','read_fullband','italian_speech' ]
-    speech_dirs = [ 'french_fullband' ]#,'german_fullband','spanish_fullband' ]
+    speech_dirs = [ 'read_fullband' ]#,'german_fullband','spanish_fullband' ]
     audio_length = hparams["audio_length"]
 
     train_shard_patterns = []
