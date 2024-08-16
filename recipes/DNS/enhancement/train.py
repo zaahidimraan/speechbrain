@@ -225,8 +225,8 @@ class Enhancement(sb.Brain):
                         loss = loss.mean()
 
                 if (
-                    # loss < self.hparams.loss_upper_lim and loss.nelement() > 0
-                    loss.nelement() > 0
+                    loss < self.hparams.loss_upper_lim and loss.nelement() > 0
+                    # loss.nelement() > 0
                 ):  # the fix for computational problems
                     self.scaler.scale(loss).backward()
                     if self.hparams.clip_grad_norm >= 0:
